@@ -1,10 +1,14 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Category(models.Model):
     name = models.CharField(max_length=250)
     url_slug = models.CharField(max_length=250)
-    created_at = models.DateTimeField(verbose_name="created at")
+    created_at = models.DateTimeField(verbose_name="created at", default=timezone.now())
+
+    def __str__(self):
+            return self.name
 
 class Post(models.Model):
     title = models.CharField(max_length=250)
@@ -15,3 +19,6 @@ class Post(models.Model):
     posted_on = models.DateTimeField()
     # Category FK
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+            return self.title

@@ -3,5 +3,8 @@
     "python.linter": "pyLint",
     "sqlite.logLevel": "INFO",
     "sqlite.recordsPerPage": 50,
-    "sqlite.sqlite3": "sqlite3"
+    "sqlite.sqlite3": "sqlite3",
+    "python.linting.pylintArgs": [
+        "--load-plugins", "pylint_django"
+    ]
 }

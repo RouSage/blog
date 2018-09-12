@@ -1,3 +1,7 @@
 {
-    "python.pythonPath": "${workspaceFolder}\\venv\\Scripts\\python.exe"
+    "python.pythonPath": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+    "python.linter": "pyLint",
+    "sqlite.logLevel": "INFO",
+    "sqlite.recordsPerPage": 50,
+    "sqlite.sqlite3": "sqlite3"
 }

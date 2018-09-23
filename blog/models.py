@@ -24,6 +24,14 @@ class Tag(models.Model):
     created_at = models.DateField(
         verbose_name="created ad", default=timezone.now())
 
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.url_slug:
+            self.url_slug = get_unique_slug(self, 'name', 'url_slug')
+        super().save(*args, **kwargs)
+
 
 class Post(models.Model):
     title = models.CharField(max_length=250)

@@ -1,6 +1,6 @@
-import datetime
 from django.db import models
 from django.utils import timezone
+from .utils import get_unique_slug
 
 
 class Category(models.Model):
@@ -11,6 +11,11 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.url_slug:
+            self.url_slug = get_unique_slug(self, 'name', 'url_slug')
+        super().save(*args, **kwargs)
 
 
 class Post(models.Model):
@@ -25,3 +30,8 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        if not self.url_slug:
+            self.url_slug = get_unique_slug(self, 'title', 'url_slug')
+        super().save(*args, **kwargs)

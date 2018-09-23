@@ -11,7 +11,7 @@ class PostAdmin(admin.ModelAdmin):
             "published", "posted_on"
         ]})
     ]
-    list_display = ('title', 'posted_on', 'published', 'category')
+    list_display = ('title', 'url_slug', 'posted_on', 'published', 'category')
     list_filter = ['posted_on', 'published', 'category']
     search_fields = ['title']
 

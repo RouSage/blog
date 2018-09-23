@@ -18,6 +18,13 @@ class Category(models.Model):
         super().save(*args, **kwargs)
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=150)
+    url_slug = models.SlugField(unique=True, db_index=True, max_length=50)
+    created_at = models.DateField(
+        verbose_name="created ad", default=timezone.now())
+
+
 class Post(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField(max_length=5000)
@@ -27,6 +34,8 @@ class Post(models.Model):
     posted_on = models.DateTimeField(db_index=True)
     # Category FK
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    # Tag Many-to-many
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
         return self.title

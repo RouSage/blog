@@ -1,6 +1,7 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
+<h1>{% block title %}{{ page_title }}{% endblock  %}</h1>
 <div id="content">
     {% if posts %}
     {% for post in posts %}

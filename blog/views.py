@@ -3,12 +3,14 @@ from .models import Post
 
 
 def index(request):
-    posts = get_list_or_404(Post.objects.order_by("-posted_on"), published=True)[:10]
+    posts = get_list_or_404(Post.objects.order_by(
+        "-posted_on"), published=True)[:10]
     context = {
         "posts": posts,
         "page_title": "Latest posts"
     }
     return render(request, "blog/index.html", context)
+
 
 def archive(request, year, month):
     posts = get_list_or_404(Post.objects.oder_by("-posted_on"), published=True,

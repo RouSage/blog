@@ -1,7 +1,9 @@
 {% extends "blog/base.html" %}
 
+
 {% block content %}
-<h1>{% block title %}{{ page_title }}{% endblock  %}</h1>
+{% include "blog/_sidebar.html" %}
+<h1>{% block title %}{{ page_title }}{% endblock title %}</h1>
 <div id="content">
     {% if posts %}
     {% for post in posts %}
@@ -16,4 +18,4 @@
     <p>There are no posts yet!</p>
     {% endif %}
 </div>
-{% endblock %}
+{% endblock content %}

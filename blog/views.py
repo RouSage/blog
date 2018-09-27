@@ -23,8 +23,6 @@ def archive_date(request, year, month):
 
 
 def archive_category(request, category_slug):
-    # posts = get_list_or_404(Post.objects.order_by("-posted_on"), published=True,
-    #                         category__url_slug=category_slug)[:10]
     category = get_object_or_404(Category, url_slug=category_slug)
     context = {
         "posts": category.post_set.all(),

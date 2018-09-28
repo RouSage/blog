@@ -6,14 +6,11 @@ from django.db.models import Count
 def index(request):
     posts = get_list_or_404(Post.objects.order_by(
         "-posted_on"), published=True)[:10]
-    categories = Category.objects.annotate(
-        n_posts=Count('post')).order_by('name')
-    tags = Tag.objects.all().order_by('name')
     context = {
         "posts": posts,
         "page_title": "Latest posts",
-        "categories": categories,
-        "tags": tags
+        "categories": get_categories(),
+        "tags": get_tags()
     }
     return render(request, "blog/index.html", context)
 
@@ -52,3 +49,11 @@ def detail(request, post_slug):
         "post": post
     }
     return render(request, "blog/detail.html", context)
+
+
+def get_categories():
+    return Category.objects.all().order_by('name')
+
+
+def get_tags():
+    return Tag.objects.all().order_by('name')

@@ -5,13 +5,13 @@ from . import views
 app_name = "blog"
 urlpatterns = [
     # ex: /blog/
-    path("", views.index, name="index"),
+    path("", views.IndexView.as_view(), name="index"),
     # ex: /blog/lorem_ipsum
-    path("<slug:post_slug>/", views.detail, name="detail"),
+    path("<slug:slug>/", views.DetailView.as_view(), name="detail"),
     # ex: /blog/archive/2018/10
     path("archive/<int:year>/<int:month>/", views.archive_date, name="archive_date"),
     # ex: /blog/archive/programming
-    path("categories/<slug:category_slug>/", views.category, name="category"),
+    path("categories/<slug:slug>/", views.CategoryView.as_view(), name="category"),
     # ex: /blog/archive/web
-    path("tags/<slug:tag_slug>/", views.tag, name="tag")
+    path("tags/<slug:slug>/", views.TagView.as_view(), name="tag")
 ]

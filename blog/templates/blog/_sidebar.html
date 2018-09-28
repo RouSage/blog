@@ -1,19 +1,30 @@
 <div class="sidebar">
-        <!-- insert your sidebar items here -->
-        <h3>Categories</h3>
-        <h3>Useful Links</h3>
-        <ul>
-            <li><a href="#">link 1</a></li>
-            <li><a href="#">link 2</a></li>
-            <li><a href="#">link 3</a></li>
-            <li><a href="#">link 4</a></li>
-        </ul>
-        <h3>Search</h3>
-        <form method="post" action="#" id="search_form">
-            <p>
-                <input class="search" type="text" name="search_field" value="Enter keywords....." />
-                <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search"
-                    title="Search" />
-            </p>
-        </form>
-    </div>
+    <h3>Categories</h3>
+    <ul>
+        {% for category in categories %}
+        <li>
+            <a href="{% url 'blog:category' category.url_slug %}">
+                {{ category.name }} - {{ category.n_posts }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <h3>Tags</h3>
+    <ul>
+        {% for tag in tags %}
+        <li>
+            <a href="{% url 'blog:tag' tag.url_slug %}">
+                {{ tag.name }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+    <h3>Search</h3>
+    <form method="post" action="#" id="search_form">
+        <p>
+            <input class="search" type="text" name="search_field" value="Enter keywords....." />
+            <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search"
+                title="Search" />
+        </p>
+    </form>
+</div>

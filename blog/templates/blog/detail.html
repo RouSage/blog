@@ -1,6 +1,18 @@
 {% extends "blog/base.html" %}
 
 {% block content %}
+{% include "blog/_sidebar.html" %}
 <h1>{% block title %}{{ post.title }}{% endblock %}</h1>
-<p>{{ post.content }}</p>
+<div id="content">
+    <p>
+        <span>{{ post.posted_on|date:"N d, Y" }} </span>&blacksquare;
+        <span><a href="{% url 'blog:category' post.category.url_slug %}">{{ post.category.name }}</a></span>&nbsp;&blacksquare;
+        <span>
+            {% for tag in post.tags.all %}
+            <a href="{% url 'blog:tag' tag.url_slug %}">{{ tag.name }} </a>
+            {% endfor %}
+        </span>
+    </p>
+    <p>{{ post.content }}</p>
+</div>
 {% endblock %}

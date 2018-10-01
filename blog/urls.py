@@ -9,7 +9,8 @@ urlpatterns = [
     # ex: /blog/lorem_ipsum
     path("<slug:slug>/", views.DetailView.as_view(), name="detail"),
     # ex: /blog/archive/2018/10
-    path("archive/<int:year>/<int:month>/", views.archive_date, name="archive_date"),
+    path("archive/<int:year>/<int:month>/",
+        views.MonthArchiveView.as_view(month_format="%m"), name="archive"),
     # ex: /blog/archive/programming
     path("categories/<slug:slug>/", views.CategoryView.as_view(), name="category"),
     # ex: /blog/archive/web

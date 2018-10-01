@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import get_object_or_404, get_list_or_404
 from django.views import generic
 from .models import Post, Category, Tag
 
@@ -81,19 +81,25 @@ class DetailView(generic.DetailView):
         return context
 
 
-def archive_date(request, year, month):
+class MonthArchiveView(generic.MonthArchiveView):
     """
     Get all published posts by year and month
     """
-    posts = get_list_or_404(Post.objects.oder_by("-posted_on"), published=True,
-                            posted_on__year=year, posted_on__month=month)[:10]
-    context = {
-        "posts": posts,
-        "page_title": "Posts by {} year and {}th month".format(year, month),
-        "categories": get_categories(),
-        "tags": get_tags()
-    }
-    return render(request, "blog/index.html", context)
+    template_name = "blog/index.html"
+    model = Post
+    date_field = "posted_on"
+    context_object_name = "posts"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = get_categories()
+        context["tags"] = get_tags()
+        context["page_title"] = "Posts by {} year and {}nt month".format(
+            self.kwargs["year"], self.kwargs["month"])
+        return context
+
+    def get_queryset(self):
+        return Post.objects.filter(published=True).order_by("-posted_on")
 
 
 def get_categories():

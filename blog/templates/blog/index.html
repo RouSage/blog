@@ -9,8 +9,12 @@
     {% for post in posts %}
     <h1><a href="{% url 'blog:detail' post.url_slug %}">{{ post.title }}</a></h1>
     <p>
-        <span>{{ post.posted_on|date:"N d, Y" }} </span>&blacksquare;
-        <span><a href="{% url 'blog:category' post.category.url_slug %}">{{ post.category.name }}</a></span>&nbsp;&blacksquare;
+        <a href="{% url 'blog:archive' post.posted_on.year post.posted_on.month %}">
+            <span>{{ post.posted_on|date:"N d, Y" }} </span>
+        </a>&blacksquare;
+        <a href="{% url 'blog:category' post.category.url_slug %}">
+            <span>{{ post.category.name }}</span>&nbsp;
+        </a>&blacksquare;
         <span>
             {% for tag in post.tags.all %}
             <a href="{% url 'blog:tag' tag.url_slug %}">{{ tag.name }} </a>

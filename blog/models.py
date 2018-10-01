@@ -1,4 +1,5 @@
 from django.db import models
+from tinymce import models as tinymce_models
 from django.utils import timezone
 from .utils import get_unique_slug
 
@@ -36,7 +37,7 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField(max_length=5000)
-    content = models.TextField()
+    content = tinymce_models.HTMLField()
     url_slug = models.SlugField(unique=True, db_index=True, max_length=50)
     published = models.BooleanField(default=False)
     posted_on = models.DateTimeField(db_index=True)

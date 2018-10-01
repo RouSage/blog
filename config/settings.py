@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# TinyMCE Configuration
+
+TINYMCE_DEFAULT_CONFIG = {
+    'theme': "advanced",
+    'plugins': "table, lists, advlist, autoresize",
+    'width': '70%',
+    'height': 500,
+}

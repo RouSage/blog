@@ -21,6 +21,16 @@
         </li>
         {% endfor %}
     </ul>
+    <h3>Archive</h3>
+    <ul>
+        {% for date in archive_dates %}
+        <li>
+            <a href="{% url 'blog:archive' date.year date.month %}">
+                {{ date|date:"F Y" }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
     <h3>Search</h3>
     <form method="post" action="#" id="search_form">
         <p>

@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.views import generic
-from .models import Post, Category, Tag
+from blog.models import Post, Category, Tag
 
 
 class IndexView(generic.ListView):
@@ -16,6 +16,7 @@ class IndexView(generic.ListView):
         context["page_title"] = "Latest posts"
         context["categories"] = get_categories()
         context["tags"] = get_tags()
+        context["archive_dates"] = get_arhive_dates()
         return context
 
     def get_queryset(self):
@@ -35,6 +36,7 @@ class CategoryView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["categories"] = get_categories()
         context["tags"] = get_tags()
+        context["archive_dates"] = get_arhive_dates()
         context["page_title"] = "Posts by '{}' category".format(
             self.category.name)
         return context
@@ -57,6 +59,7 @@ class TagView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["categories"] = get_categories()
         context["tags"] = get_tags()
+        context["archive_dates"] = get_arhive_dates()
         context["page_title"] = "Posts by '{}' tag".format(self.tag.name)
         return context
 
@@ -78,6 +81,7 @@ class DetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context["categories"] = get_categories()
         context["tags"] = get_tags()
+        context["archive_dates"] = get_arhive_dates()
         return context
 
 
@@ -94,6 +98,7 @@ class MonthArchiveView(generic.MonthArchiveView):
         context = super().get_context_data(**kwargs)
         context["categories"] = get_categories()
         context["tags"] = get_tags()
+        context["archive_dates"] = get_arhive_dates()
         context["page_title"] = "Posts by {} year and {}nt month".format(
             self.kwargs["year"], self.kwargs["month"])
         return context
@@ -114,3 +119,11 @@ def get_tags():
     Get all tag from DB
     """
     return Tag.objects.all().order_by('name')
+
+
+def get_arhive_dates():
+    """
+    Get Posts' dates
+    """
+    return Post.objects.filter(published=True).datetimes('posted_on', 'month', 'DESC')
+

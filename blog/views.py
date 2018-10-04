@@ -10,6 +10,7 @@ class IndexView(generic.ListView):
     template_name = "blog/index.html"
     model = Post
     context_object_name = "posts"
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -21,7 +22,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return get_list_or_404(Post.objects.order_by("-posted_on"),
-                               published=True)[:10]
+                               published=True)
 
 
 class CategoryView(generic.ListView):
@@ -31,6 +32,7 @@ class CategoryView(generic.ListView):
     template_name = "blog/index.html"
     model = Post
     context_object_name = "posts"
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,6 +56,7 @@ class TagView(generic.ListView):
     template_name = "blog/index.html"
     model = Post
     context_object_name = "posts"
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -93,6 +96,7 @@ class MonthArchiveView(generic.MonthArchiveView):
     model = Post
     date_field = "posted_on"
     context_object_name = "posts"
+    paginate_by = 10
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

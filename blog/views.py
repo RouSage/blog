@@ -126,4 +126,3 @@ def get_arhive_dates():
     Get Posts' dates
     """
     return Post.objects.filter(published=True).datetimes('posted_on', 'month', 'DESC')
-

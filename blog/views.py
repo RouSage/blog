@@ -17,7 +17,7 @@ class IndexView(generic.ListView):
         context["page_title"] = "Latest posts"
         context["categories"] = get_categories()
         context["tags"] = get_tags()
-        context["archive_dates"] = get_arhive_dates()
+        context["archive_dates"] = get_archive_dates()
         return context
 
     def get_queryset(self):
@@ -38,7 +38,7 @@ class CategoryView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["categories"] = get_categories()
         context["tags"] = get_tags()
-        context["archive_dates"] = get_arhive_dates()
+        context["archive_dates"] = get_archive_dates()
         context["page_title"] = "Posts by '{}' category".format(
             self.category.name)
         return context
@@ -62,7 +62,7 @@ class TagView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context["categories"] = get_categories()
         context["tags"] = get_tags()
-        context["archive_dates"] = get_arhive_dates()
+        context["archive_dates"] = get_archive_dates()
         context["page_title"] = "Posts by '{}' tag".format(self.tag.name)
         return context
 
@@ -84,7 +84,7 @@ class DetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context["categories"] = get_categories()
         context["tags"] = get_tags()
-        context["archive_dates"] = get_arhive_dates()
+        context["archive_dates"] = get_archive_dates()
         return context
 
 
@@ -102,7 +102,7 @@ class MonthArchiveView(generic.MonthArchiveView):
         context = super().get_context_data(**kwargs)
         context["categories"] = get_categories()
         context["tags"] = get_tags()
-        context["archive_dates"] = get_arhive_dates()
+        context["archive_dates"] = get_archive_dates()
         context["page_title"] = "Posts by {} year and {}nt month".format(
             self.kwargs["year"], self.kwargs["month"])
         return context
@@ -125,7 +125,7 @@ def get_tags():
     return Tag.objects.all().order_by('name')
 
 
-def get_arhive_dates():
+def get_archive_dates():
     """
     Get Posts' dates
     """

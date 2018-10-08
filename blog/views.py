@@ -1,6 +1,6 @@
-from django.shortcuts import get_object_or_404, get_list_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
 from django.views import generic
-from blog.models import Post, Category, Tag
+from blog.models import Category, Post, Tag
 
 
 class IndexView(generic.ListView):

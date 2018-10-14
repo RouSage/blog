@@ -23,7 +23,7 @@
                     <li class="{% if request.resolver_match.url_name == 'index' %}selected{% endif %}">
                         <a href="{% url 'blog:index' %}">Home</a>
                     </li>
-                    <li>
+                    <li class="{% if request.resolver_match.url_name == 'about' %}selected{% endif %}">
                         <a href="#">About Me</a>
                     </li>
                     <li>

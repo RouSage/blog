@@ -1,3 +1,6 @@
+import operator
+from functools import reduce
+from django.db.models import Q
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.views import generic
 from blog.models import Category, Post, Tag
@@ -21,8 +24,17 @@ class IndexView(generic.ListView):
         return context
 
     def get_queryset(self):
-        return get_list_or_404(Post.objects.order_by("-posted_on"),
-                               published=True)
+        result = super(IndexView, self).get_queryset()
+
+        query = self.request.GET.get("q")
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_, (Q(title__icontains=q) for q in query_list)), published=True)
+        else:
+            result = result.filter(published=True)
+
+        return result.order_by('-posted_on')
 
 
 class CategoryView(generic.ListView):

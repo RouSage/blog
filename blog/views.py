@@ -1,7 +1,7 @@
 import operator
 from functools import reduce
 from django.db.models import Q
-from django.shortcuts import get_list_or_404, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.views import generic
 from blog.models import Category, Post, Tag
 

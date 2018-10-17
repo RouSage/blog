@@ -1,4 +1,3 @@
-import datetime
 from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
@@ -37,8 +36,7 @@ class BlogIndexViewTests(TestCase):
         response = self.client.get(reverse('blog:index'))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context['posts']), 1)
-        self.assertQuerysetEqual(response.context['posts'], [
-                                 '<Post: Test post>'])
+        self.assertQuerysetEqual(response.context['posts'], ['<Post: Test post>'])
 
     def test_categories_load_successfully(self):
         """
@@ -49,8 +47,9 @@ class BlogIndexViewTests(TestCase):
         create_category("Category2")
         response = self.client.get(reverse('blog:index'))
         self.assertEqual(len(response.context['categories']), 2)
-        self.assertQuerysetEqual(response.context['categories'], ['<Category: Category1>', '<Category: Category2>'])
-    
+        self.assertQuerysetEqual(response.context['categories'], [
+                                 '<Category: Category1>', '<Category: Category2>'])
+
     def test_tags_load_successfully(self):
         """
         Check if index page successfully load _sidebar.html
@@ -60,7 +59,17 @@ class BlogIndexViewTests(TestCase):
         create_tag("Tag2")
         response = self.client.get(reverse("blog:index"))
         self.assertEqual(len(response.context["tags"]), 2)
-        self.assertQuerysetEqual(response.context["tags"], ["<Tag: Tag1>", "<Tag: Tag2>"])
+        self.assertQuerysetEqual(response.context["tags"], [
+                                 "<Tag: Tag1>", "<Tag: Tag2>"])
+
+    def test_should_search_successfully(self):
+        """
+        View should show correct post when searching
+        """
+        create_post("Post1", "Descrition1", True, "Content1")
+        response = self.client.get("/", {"q": "post"})
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context["posts"], ["<Post: Post1>"])
 
 
 class BlogDetailViewTests(TestCase):
@@ -68,7 +77,8 @@ class BlogDetailViewTests(TestCase):
         """
         404 Not Found page should be returned when the post is not found
         """
-        response = self.client.get(reverse("blog:detail", kwargs={"slug": "random-post"}))
+        response = self.client.get(
+            reverse("blog:detail", kwargs={"slug": "random-post"}))
         self.assertEqual(response.status_code, 404)
 
     def test_should_show_correct_article(self):
@@ -76,7 +86,8 @@ class BlogDetailViewTests(TestCase):
         Detail page should show correct post based on post's slug
         """
         post = create_post("Post1", "Post1 description", True, "Post1 Content")
-        response = self.client.get(reverse("blog:detail", kwargs={"slug": post.url_slug}))
+        response = self.client.get(
+            reverse("blog:detail", kwargs={"slug": post.url_slug}))
         self.assertEqual(response.context["post"], post)
         self.assertEqual(response.context["post"].url_slug, post.url_slug)
         self.assertEqual(response.context["post"].title, post.title)

@@ -1,13 +1,15 @@
 {
     "python.pythonPath": "${workspaceFolder}\\venv\\Scripts\\python.exe",
-    "python.linter": "pyLint",
     "sqlite.logLevel": "INFO",
     "sqlite.recordsPerPage": 50,
     "sqlite.sqlite3": "sqlite3",
     "python.linting.pylintArgs": [
-        "--load-plugins", "pylint_django"
+        "--load-plugins",
+        "pylint-django"
     ],
     "htmlhint.options": {
         "doctype-first": false
-    }
+    },
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true
 }

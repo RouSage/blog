@@ -8,7 +8,7 @@ class Category(models.Model):
     name = models.CharField(max_length=250)
     url_slug = models.SlugField(unique=True, db_index=True, max_length=50)
     created_at = models.DateTimeField(
-        verbose_name="created at", default=timezone.now())
+        verbose_name="created at", default=timezone.now)
 
     def __str__(self):
         return self.name
@@ -23,7 +23,7 @@ class Tag(models.Model):
     name = models.CharField(max_length=150)
     url_slug = models.SlugField(unique=True, db_index=True, max_length=50)
     created_at = models.DateField(
-        verbose_name="created ad", default=timezone.now())
+        verbose_name="created ad", default=timezone.now)
 
     def __str__(self):
         return self.name

@@ -1,9 +1,29 @@
 {% extends "admin/base.html" %}
 
+{% load static %}
+{% load i18n %}
+<!-- custom filter moodule -->
+{% load i18n_switcher %}
+
+
 {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
 
 {% block branding %}
-<h1 id="site-name"><a href="{% url 'admin:index' %}">Blog Administration</a></h1>
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{% trans 'Blog Administration' %}</a></h1>
 {% endblock %}
 
-{% block nav-global %}{% endblock %}
+{% block userlinks %}
+    <a href="{{ request|switch_i18n:'en' }}">
+        EN
+    </a> /
+    <a href="{{ request|switch_i18n:'ru' }}">
+        RU
+    </a> /
+    <a href="{% url 'blog:index' %}">
+        {% trans 'View site' %}
+    </a> /
+    {% if user.has_usable_password %}
+        <a href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a> /
+    {% endif %}
+    <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+{% endblock %}

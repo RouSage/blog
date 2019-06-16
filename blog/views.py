@@ -3,6 +3,7 @@ from functools import reduce
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views import generic
+from django.utils.translation import gettext as _
 from blog.models import Category, Post, Tag
 
 
@@ -17,7 +18,7 @@ class IndexView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["page_title"] = "Latest posts"
+        context["page_title"] = _("Latest posts")
         context["categories"] = get_categories()
         context["tags"] = get_tags()
         context["archive_dates"] = get_archive_dates()
@@ -51,8 +52,8 @@ class CategoryView(generic.ListView):
         context["categories"] = get_categories()
         context["tags"] = get_tags()
         context["archive_dates"] = get_archive_dates()
-        context["page_title"] = "Posts by '{}' category".format(
-            self.category.name)
+        context["page_title"] = _("Posts by '%(category)s' category") % {
+            'category': self.category.name}
         return context
 
     def get_queryset(self):
@@ -75,7 +76,8 @@ class TagView(generic.ListView):
         context["categories"] = get_categories()
         context["tags"] = get_tags()
         context["archive_dates"] = get_archive_dates()
-        context["page_title"] = "Posts by '{}' tag".format(self.tag.name)
+        context["page_title"] = _("Posts by '%(tag)s' tag") % {
+            'tag': self.tag.name}
         return context
 
     def get_queryset(self):
@@ -115,8 +117,8 @@ class MonthArchiveView(generic.MonthArchiveView):
         context["categories"] = get_categories()
         context["tags"] = get_tags()
         context["archive_dates"] = get_archive_dates()
-        context["page_title"] = "Posts by {} year and {}nt month".format(
-            self.kwargs["year"], self.kwargs["month"])
+        context["page_title"] = _("Posts by %(year)s year and %(month)s month") % {
+            'year': self.kwargs["year"], 'month': self.kwargs["month"]}
         return context
 
     def get_queryset(self):

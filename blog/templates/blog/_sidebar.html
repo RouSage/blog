@@ -1,7 +1,8 @@
 {% load static %}
+{% load i18n %}
 
 <div class="sidebar">
-    <h3>Categories</h3>
+    <h3>{% trans 'Categories' %}</h3>
     <ul>
         {% for category in categories %}
         <li>
@@ -11,7 +12,7 @@
         </li>
         {% endfor %}
     </ul>
-    <h3>Tags</h3>
+    <h3>{% trans 'Tags' %}</h3>
     <ul>
         {% for tag in tags %}
         <li>
@@ -21,7 +22,7 @@
         </li>
         {% endfor %}
     </ul>
-    <h3>Archive</h3>
+    <h3>{% trans 'Archive' %}</h3>
     <ul>
         {% for date in archive_dates %}
         <li>
@@ -31,10 +32,11 @@
         </li>
         {% endfor %}
     </ul>
-    <h3>Search</h3>
+    <h3>{% trans 'Search' %}</h3>
     <form method="GET" action="{% url 'blog:index' %}" id="search_form" accept-charset="utf-8">
         <p>
-            <input class="search" id="searchbox" type="text" name="q" placeholder="Enter keywords..." />
+            <input class="search" id="searchbox" type="text" name="q"
+            placeholder="{% trans "Enter keywords..." %}" />
             <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;"
                 src="{% static 'blog/img/search.png' %}" alt="Search" title="Search" />
         </p>
